@@ -17,6 +17,14 @@ body {
     right: 10px;
 }
 
+.query-time {
+    margin: 20px 0;
+}
+
+.json-link {
+    color: gray;
+}
+
 .login-link {
     color: gray;
     text-decoration: none;

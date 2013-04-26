@@ -88,8 +88,6 @@ class PostPage(BaseHandler):
             results = {'post': post, 'time': cached_time}
             return results
         else:
-            # key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            # post = db.get(key)
             post = Post.get_by_id(int(post_id))
             queried_time = time.time()
             memcache.set_multi({'post_key': post, 'post_keytwo': queried_time})

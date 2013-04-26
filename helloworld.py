@@ -1,13 +1,4 @@
-import os
-import sys
-import re
-import hashlib
-import hmac
-import random
-import string
-import time
-import json
-import logging
+import os, sys, re, hashlib, hmac, random, logging, string, time, json
 
 import webapp2
 import jinja2

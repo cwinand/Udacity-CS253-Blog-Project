@@ -1,4 +1,4 @@
-import os, sys, re, hashlib, hmac, random, logging, string, time, json
+import os, sys, re, logging, string, time, json
 
 import webapp2
 import jinja2
@@ -6,41 +6,14 @@ import jinja2
 from google.appengine.api import memcache
 from google.appengine.ext import db
 
-SECRET = 'thisissupersecret'
+from pwfuncs import *
+
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
 #GLOBAL STUFF
-def make_salt():
-    x = ''
-    while len(x) < 5:
-        x = x + random.choice(string.ascii_letters)
-    return x
-
-def make_pw_hash(name, pw, salt=None):
-    if not salt:
-        salt = make_salt()
-    h = hashlib.sha256(name + pw + salt).hexdigest()
-    return '%s|%s' % (h, salt)
-
-def valid_pw(name, pw, h):
-    salt = h.split('|')
-    salt = salt[1]
-    return make_pw_hash(name,pw,salt) == h
-
-def hash_str(s):
-    return hmac.new(SECRET, s).hexdigest()
-
-def make_secure_val(s):
-    return "%s|%s" % (s, hash_str(s))
-
-def check_secure_val(h):
-    if h:
-        val = h.find("|")
-        if h[val+1:] == hash_str(h[0:val]):
-            return h[0:val]
 
 def render_str(template, **params):
     t = jinja_env.get_template(template)

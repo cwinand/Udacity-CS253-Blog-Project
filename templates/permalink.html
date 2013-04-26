@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ single_post.render() | safe }} 
+
+<div>{{cur_time}}</div>
+{% endblock %}
+
